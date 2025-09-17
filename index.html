@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Downloads</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+    }
+
+    /* Menu container */
+    .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    /* Dropdown button */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropbtn {
+      background: #333;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+
+    .dropbtn:hover {
+      background: #444;
+    }
+
+    /* Dropdown content */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 200px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      border-radius: 6px;
+      margin-top: 5px;
+      z-index: 1000;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: black;
+      border-bottom: 1px solid #eee;
+    }
+
+    .dropdown-content a:hover {
+      background: #f2f2f2;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block; /* Hover behavior for desktop */
+    }
+
+    /* Show on click (mobile) */
+    .dropdown.active .dropdown-content {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+    <!-- Games dropdown -->
+    <div class="dropdown">
+      <button class="dropbtn">GAMES</button>
+      <div class="dropdown-content">
+        <a href="Public/Downloads/Games/game1.zip" download>Game 1</a>
+        <a href="Public/Downloads/Games/game2.zip" download>Game 2</a>
+        <a href="Public/Downloads/Games/game3.zip" download>Game 3</a>
+      </div>
+    </div>
+
+    <!-- Files dropdown -->
+    <div class="dropdown">
+      <button class="dropbtn">FILES</button>
+      <div class="dropdown-content">
+        <a href="Public/Downloads/Files/file1.pdf" download>File 1</a>
+        <a href="Public/Downloads/Files/file2.pdf" download>File 2</a>
+        <a href="Public/Downloads/Files/file3.pdf" download>File 3</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Enable dropdown toggle on mobile/touch devices
+    document.querySelectorAll('.dropdown .dropbtn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        let parent = this.parentElement;
+        parent.classList.toggle('active');
+      });
+    });
+
+    // Close dropdown if clicking outside
+    window.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdown').forEach(drop => {
+        if (!drop.contains(e.target)) {
+          drop.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
