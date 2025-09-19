@@ -38,9 +38,11 @@
 
   <script>
     let randomNumber;
+    let guessCount;
 
     function startGame() {
       randomNumber = Math.floor(Math.random() * 101); // 0 to 100
+      guessCount = 0;
       document.getElementById("message").textContent = "Guess a number between 0 and 100!";
       document.getElementById("guessInput").value = "";
     }
@@ -54,12 +56,14 @@
         return;
       }
 
+      guessCount++;
+
       if (guess === randomNumber) {
-        message.textContent = "🎉 Correct! You guessed the number!";
+        message.textContent = `🎉 Correct! The number was ${randomNumber}. You guessed it in ${guessCount} tries.`;
       } else if (guess < randomNumber) {
-        message.textContent = "Too low! Try again.";
+        message.textContent = `Too low! Try again. (Guesses: ${guessCount})`;
       } else {
-        message.textContent = "Too high! Try again.";
+        message.textContent = `Too high! Try again. (Guesses: ${guessCount})`;
       }
     }
 
