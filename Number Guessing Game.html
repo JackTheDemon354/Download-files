@@ -25,11 +25,20 @@
       margin-top: 20px;
       font-size: 20px;
     }
+
+    #cheat {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: yellow;
+      display: none; /* hidden until cheat combo is pressed */
+    }
   </style>
 </head>
 <body>
 
   <h1>Guess the Number (0–100)</h1>
+  <div id="cheat">🤫 The number is: <span id="answer"></span></div>
+
   <input type="number" id="guessInput" min="0" max="100" placeholder="Enter a number">
   <button onclick="checkGuess()">Guess</button>
   <button onclick="startGame()">Restart Game</button>
@@ -39,12 +48,16 @@
   <script>
     let randomNumber;
     let guessCount;
+    let cheatTimeout;
 
     function startGame() {
       randomNumber = Math.floor(Math.random() * 101); // 0 to 100
       guessCount = 0;
       document.getElementById("message").textContent = "Guess a number between 0 and 100!";
       document.getElementById("guessInput").value = "";
+      document.getElementById("answer").textContent = randomNumber;
+      document.getElementById("cheat").style.display = "none"; // hide at start
+      if (cheatTimeout) clearTimeout(cheatTimeout); // stop any old timer
     }
 
     function checkGuess() {
@@ -66,6 +79,19 @@
         message.textContent = `Too high! Try again. (Guesses: ${guessCount})`;
       }
     }
+
+    // Listen for secret key combo (Shift + C)
+    document.addEventListener("keydown", (e) => {
+      if (e.key.toLowerCase() === "c" && e.shiftKey) {
+        const cheatDiv = document.getElementById("cheat");
+        cheatDiv.style.display = "block";
+
+        // hide again after 2 seconds
+        cheatTimeout = setTimeout(() => {
+          cheatDiv.style.display = "none";
+        }, 2000);
+      }
+    });
 
     // Start the game when the page loads
     startGame();
